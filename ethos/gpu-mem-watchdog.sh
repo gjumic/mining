@@ -1,18 +1,35 @@
 #!/bin/bash
 
 
-NOWT=$(date +"%D"-"%T")
+NOWT=$(date '+%d/%m/%Y %H:%M:%S')
+OUTPUT="/opt/gpu-watchdog/memory.output"
+LOG="/opt/gpu-watchdog/log.txt"
+
 echo "Sleeping 280 seconds, just in case!"
-#sleep 280
-/opt/ethos/bin/update | grep -w mem > /opt/tools/output.file
-MEMORY="$( awk '$3 < 1000 {print $0;}' /opt/tools/output.file )"
-echo $MEMORY
-        if  [[ -z $MEMORY ]];
-        then
-                echo "None of the cards have less than 1000 mem speed"
-                echo "GPU CHECK OK! $NOWT" >> /opt/tools/rebooted.log
-        else
-                echo "$MEMORY" >> /opt/tools/rebooted.log
-                echo "GPU DOWN $NOWT -> REBOOT" >> /opt/tools/rebooted.log
-                /opt/ethos/bin/hard-reboot
-fi
+sleep 280
+/opt/ethos/bin/update | grep -w mem > $OUTPUT
+MEMORY="$( cat ${OUTPUT} | grep "mem:" | sed 's/mem://' | sed "s/^[ \t]*//" )"
+echo '###############################################' >> $LOG
+echo "STARTING MEMORY SCAN - $NOWT" >> $LOG
+echo '###############################################' >> $LOG
+
+for m in $MEMORY
+        do
+        :
+                if  [[ $m -gt 1000 ]];
+                then
+                        echo "GPUMEM: $m" >> $LOG
+                        echo "GPU CHECK OK! $NOWT" >> $LOG
+                else
+                        echo "GPUMEM: $m" >> $LOG
+                        echo "GPU DOWN $NOWT -> REBOOT" >> $LOG
+                        nohup bash -c 'sleep 10; /opt/ethos/bin/hard-reboot' &
+                fi
+
+        done
+echo '###############################################' >> $LOG
+echo "FINISHED MEMORY SCAN - $NOWT" >> $LOG
+echo '###############################################' >> $LOG
+
+
+echo "$(tail -n 500 ${LOG})" > $LOG
