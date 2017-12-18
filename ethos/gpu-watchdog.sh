@@ -13,7 +13,7 @@
 # Install guide:
 # 1. Save file to desired location
 # 2. Give execute premission to file with "chmod +x gpu-monitor.sh"
-# 3. Obratin root with "sudo su"
+# 3. Obtain root with "sudo su"
 # 4. Open crontab editor with "crontab -e"
 # 5. Inside editor add "SHELL=/bin/bash" line
 # 6. Inside editor add "*/5 * * * * /opt/gpu-watchdog/gpu-watchdog.sh" line (file location is example)
