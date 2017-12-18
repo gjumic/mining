@@ -59,10 +59,11 @@ i=1
 for m in $MEMORY
         do
         :
-				if [ $ALLOWFILE != "1" ]; then
-					echo "MINING DISALLOWED, SKIPPING GPU CHECK" >> $LOG
-					break
-				fi
+                if [ $ALLOWFILE != "1" ]; then
+                        echo "MINING DISALLOWED, SKIPPING GPU CHECK" >> $LOG
+                        break
+                fi
+                
                 if  [[ $m -gt 800 ]];
                 then
                         echo "GPUMEM$i: $m - CHECK OK!" >> $LOG
