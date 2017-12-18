@@ -1,6 +1,6 @@
 #!/bin/bash
 ######################################################
-# README - ETHOS GPU WATCHDOG v1.0
+# README - ETHOS GPU WATCHDOG v1.0 by Stormer
 ######################################################
 # Main function of this script is to monitor memory clock of your gpu memory.
 # If your gpu crashes it will log it and reboot your mining rig.
