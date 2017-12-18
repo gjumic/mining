@@ -65,7 +65,7 @@ for m in $MEMORY
                         break
                 fi
                 
-                if  [[ $m -gt 800 ]];
+                if  [[ $m -gt $GPUTRESHOLD ]];
                 then
                         echo "GPUMEM$i: $m - CHECK OK!" >> $LOG
                 else
@@ -79,4 +79,4 @@ echo "FINISHED MEMORY SCAN - $NOWT" >> $LOG
 echo '###############################################' >> $LOG
 
 # Log cleaner
-echo "$(tail -n 1000 ${LOG})" > $LOG
+echo "$(tail -n $LOGSIZE ${LOG})" > $LOG
