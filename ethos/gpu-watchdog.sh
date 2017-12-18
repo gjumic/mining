@@ -24,8 +24,8 @@
 ######################################################
 # If you have found this script useful please donate BTC or ETH to following adresses.
 # This will give me more motivation to work on this and many more scripts:
-# BTC = 
-# ETH =  
+# BTC = 1Dqa4Exdc2cfeMuhZ7Pnf9ri253UtbhsxY
+# ETH = 0xe42fb03f179Fe4e11480D623e5C40eA070a6222F
 ######################################################
 # VARIABLES (Configuration)
 ######################################################
