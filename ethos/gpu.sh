@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+#################
 
 LOGSIZE="1000" # only have last x lines in log
 REBOOT="false" # if this false it will not reboot just log
@@ -10,7 +10,7 @@ MEMORY_MHZ_MINIMUM="900" # if memory clock of any card is less than this it will
 VOLTAGE_MINIMUM="0.5" # if gpu voltage drops below this it will log and reboot
 LOG="/home/ethos/crash.log" # Location where to write log file, folder must exist
 # ATM AMD GPUS ONLY
-AUTOFAN="true" # enable auto-change of fan speed depending on average gpu temps BE CAREFULL, you can edit ranges of temps and fan speed below.
+AUTOFAN="false" # enable auto-change of fan speed depending on average gpu temps BE CAREFULL, you can edit ranges of temps and fan speed below.
 
 # First check if the miner has had 10 minutes to start mining close the script if not.
 if [[ `sed 's/\..*//' /proc/uptime` -lt "600" ]]; then
