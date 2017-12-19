@@ -16,8 +16,8 @@
 # 3. Obtain root with "sudo su"
 # 4. Open crontab editor with "crontab -e"
 # 5. Inside editor add "SHELL=/bin/bash" line
-# 6. Inside editor add "*/3 * * * * /home/ethos/gpu.sh" line
-# You can change */3 to another number (default is ever 5th min and i dont recommend less then this)
+# 6. Inside editor add "*/5 * * * * /home/ethos/gpu.sh" line
+# You can change */5 to another number (default is ever 5th min and i dont recommend less then this)
 #
 # Props to Cynix from thecynix.com for givig me ideas for code with his monitor http://thecynix.com/gpu.txt
 # For all feedback contact me on jumic.goran[AT]gmail.com
