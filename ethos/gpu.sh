@@ -65,8 +65,6 @@ touch $LOG
 chown ethos.ethos $LOG
 
 
-
-
 if [[ $AUTOFAN == "true" ]]; then
 		for ((I=0;I<GPUCOUNT;I++)); do
 			GPUS[$I]=$I
@@ -98,7 +96,6 @@ if [[ $AUTOFAN == "true" ]]; then
 		echo "$FAN" > /sys/class/drm/card$I/device/hwmon/hwmon"$HWMONDIR"/pwm1
 	done
 fi
-
 
 # Separate each hash into its own loop.
 for i in ${HR[@]}; do 
@@ -152,6 +149,3 @@ fi
 
 # Lets not let logs get out of control and truncate them a bit.
 echo "$(tail -n $LOGSIZE $LOG)" > $LOG
-
-
-
