@@ -1,7 +1,34 @@
 #!/bin/bash
-
-
-
+######################################################
+# README - ETHOS GPU WATCHDOG v1.0 by Stormer
+######################################################
+# Main function of this script is to monitor memory clock of your gpu memory.
+# If your gpu crashes it will log it and reboot your mining rig.
+# Additional functions are:
+# Check if rig is running at least 10min (default) before minitoring is allowed
+# Skip gpu check if mining is disallowed (in case you are working on rig and dont want it to be rebooted by this)
+# Log cleaner
+# Customizable throu variables
+#
+# Install guide:
+# 1. Save file to desired location
+# 2. Give execute premission to file with "chmod +x gpu-monitor.sh"
+# 3. Obtain root with "sudo su"
+# 4. Open crontab editor with "crontab -e"
+# 5. Inside editor add "SHELL=/bin/bash" line
+# 6. Inside editor add "*/5 * * * * /opt/gpu-watchdog/gpu-watchdog.sh" line (file location is example)
+# You can change */5 to another number (default is ever 5th min and i dont recommend less then this)
+#
+# Props to Cynix from thecynix.com for givig me ideas for some parts for code with his monitor http://thecynix.com/gpu.txt
+# For all feedback contact me on jumic.goran[AT]gmail.com
+######################################################
+# If you have found this script useful please donate BTC or ETH to following adresses.
+# This will give me more motivation to work on this and many more scripts:
+# BTC = 1Dqa4Exdc2cfeMuhZ7Pnf9ri253UtbhsxY
+# ETH = 0xe42fb03f179Fe4e11480D623e5C40eA070a6222F
+######################################################
+# VARIABLES (Configuration)
+######################################################
 
 LOGSIZE="1000" # only have last x lines in log
 REBOOT="false" # if this false it will not reboot just log
@@ -12,6 +39,10 @@ VOLTAGE_MINIMUM="0.5" # if gpu voltage drops below this it will log and reboot
 LOG="/home/ethos/crash.log" # Location where to write log file, folder must exist
 # ATM AMD GPUS ONLY
 AUTOFAN="false" # enable auto-change of fan speed depending on average gpu temps BE CAREFULL, you can edit ranges of temps and fan speed below.
+
+######################################################
+# M A I N
+######################################################
 
 # First check if the miner has had 10 minutes to start mining close the script if not.
 if [[ `sed 's/\..*//' /proc/uptime` -lt "600" ]]; then
