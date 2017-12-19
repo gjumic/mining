@@ -1,7 +1,6 @@
 #!/bin/bash
 
-#################
-
+# Stormer
 LOGSIZE="1000" # only have last x lines in log
 REBOOT="false" # if this false it will not reboot just log
 LOGGING="true" # if this true it will log hourly report to crash.log
