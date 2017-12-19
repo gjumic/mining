@@ -2,7 +2,7 @@
 ######################################################
 # README - ETHOS GPU WATCHDOG v1.0 by Stormer
 ######################################################
-# Main function of this script is to monitor memory clock of your gpu memory.
+# Main function of this script is to monitor gpu.
 # If your gpu crashes it will log it and reboot your mining rig.
 # Additional functions are:
 # Check if rig is running at least 10min (default) before minitoring is allowed
@@ -12,14 +12,14 @@
 #
 # Install guide:
 # 1. Save file to desired location
-# 2. Give execute premission to file with "chmod +x gpu-monitor.sh"
+# 2. Give execute premission to file with "chmod +x gpu.sh"
 # 3. Obtain root with "sudo su"
 # 4. Open crontab editor with "crontab -e"
 # 5. Inside editor add "SHELL=/bin/bash" line
-# 6. Inside editor add "*/5 * * * * /opt/gpu-watchdog/gpu-watchdog.sh" line (file location is example)
-# You can change */5 to another number (default is ever 5th min and i dont recommend less then this)
+# 6. Inside editor add "*/3 * * * * /home/ethos/gpu.sh" line
+# You can change */3 to another number (default is ever 5th min and i dont recommend less then this)
 #
-# Props to Cynix from thecynix.com for givig me ideas for some parts for code with his monitor http://thecynix.com/gpu.txt
+# Props to Cynix from thecynix.com for givig me ideas for code with his monitor http://thecynix.com/gpu.txt
 # For all feedback contact me on jumic.goran[AT]gmail.com
 ######################################################
 # If you have found this script useful please donate BTC or ETH to following adresses.
