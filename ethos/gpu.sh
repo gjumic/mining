@@ -31,11 +31,11 @@
 ######################################################
 
 LOGSIZE="1000" # only have last x lines in log
-REBOOT="false" # if this false it will not reboot just log
+REBOOT="true" # if this false it will not reboot just log
 LOGGING="true" # if this true it will log hourly report to crash.log
-HASH_RATE_MINIMUM="300" # if hashing < x log and reboot
-MEMORY_MHZ_MINIMUM="900" # if memory clock of any card is less than this it will log and reboot
-VOLTAGE_MINIMUM="0.5" # if gpu voltage drops below this it will log and reboot
+HASH_RATE_MINIMUM="350" # if hashing < x log and reboot
+MEMORY_MHZ_MINIMUM="1000" # if memory clock of any card is less than this it will log and reboot
+VOLTAGE_MINIMUM="0.6" # if gpu voltage drops below this it will log and reboot
 LOG="/home/ethos/crash.log" # Location where to write log file, folder must exist
 # ATM AMD GPUS ONLY
 AUTOFAN="false" # enable auto-change of fan speed depending on average gpu temps BE CAREFULL, you can edit ranges of temps and fan speed below.
