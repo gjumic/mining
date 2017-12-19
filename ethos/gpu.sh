@@ -119,10 +119,10 @@ if [[ $DOREBOOT == "true" ]]; then
 	echo "######################################" >> $LOG
 	echo "$DT: GPU$gpu CRASHED - $rig is restarting" >> $LOG
 	echo "Status: $error" >> $LOG
-	echo "Hashes: $HR" >> $LOG
+	echo "Hashes: $HR - minimum: $HASH_RATE_MINIMUM" >> $LOG
 	echo "MemStates: $MS" >> $LOG
-	echo "MemSpeeds: $MSPEED" >> $LOG
-	echo "Voltages: $VOLTAGE" >> $LOG
+	echo "MemSpeeds: $MSPEED - minimum: $MEMORY_MHZ_MINIMUM" >> $LOG
+	echo "Voltages: $VOLTAGE - minimum: $VOLTAGE_MINIMUM" >> $LOG
 	echo "Temperatures: $TMP" >> $LOG
 	echo "######################################" >> $LOG
 if [[ $REBOOT == "true" ]]; then
@@ -139,10 +139,10 @@ if [ $LOGGING == "true" ] && [ `date +"%M"` == "00" ]; then
 	echo "######################################" >> $LOG
 	echo "$DT: $rig is WORKING" >> $LOG
 	echo "Status: $error" >> $LOGbash 
-	echo "Hashes: $HR" >> $LOG
+	echo "Hashes: $HR - minimum: $HASH_RATE_MINIMUM" >> $LOG
 	echo "MemStates: $MS" >> $LOG
-	echo "MemSpeeds: $MSPEED" >> $LOG
-	echo "Voltages: $VOLTAGE" >> $LOG
+	echo "MemSpeeds: $MSPEED - minimum: $MEMORY_MHZ_MINIMUM" >> $LOG
+	echo "Voltages: $VOLTAGE - minimum: $VOLTAGE_MINIMUM" >> $LOG
 	echo "Temperatures: $TMP" >> $LOG
 	echo "######################################" >> $LOG
 fi
