@@ -145,13 +145,13 @@ if [ $LOGGING == "true" ]; then
 #&& [ `date +"%M"` == "00" ]; then
 	echo "######################################" | tee -a $LOG
 	echo -e "$DT: $rig is ${GREEN}WORKING${NC}" | tee -a $LOG
-	echo -e "Status: $error" | tee -a $LOGbash 
+	echo -e "Status: $error" | tee -a $LOG
 	echo -e "Hashes: $HR - minimum: ${YELLOW}$HASH_RATE_MINIMUM${NC}" | tee -a $LOG
 	echo -e "MemStates: $MS" | tee -a $LOG
 	echo -e "MemSpeeds: $MSPEED - minimum: ${YELLOW}$MEMORY_MHZ_MINIMUM${NC}" | tee -a $LOG
 	echo -e "Voltages: $VOLTAGE - minimum: ${YELLOW}$VOLTAGE_MINIMUM${NC}" | tee -a $LOG
 	echo -e "Temperatures: $TMP" | tee -a $LOG
-	echo -e "######################################" | tee -a $LOG
+	echo "######################################" | tee -a $LOG
 fi
 
 # Lets not let logs get out of control and truncate them a bit.
