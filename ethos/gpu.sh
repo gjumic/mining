@@ -144,14 +144,14 @@ done
 if [ $LOGGING == "true" ]; then 
 #&& [ `date +"%M"` == "00" ]; then
 	echo "######################################" >> $LOG
-	echo "$DT: $rig is ${GREEN}WORKING${NC}" >> $LOG
-	echo "Status: $error" >> $LOGbash 
-	echo "Hashes: $HR - minimum: ${YELLOW}$HASH_RATE_MINIMUM${NC}" >> $LOG
-	echo "MemStates: $MS" >> $LOG
-	echo "MemSpeeds: $MSPEED - minimum: ${YELLOW}$MEMORY_MHZ_MINIMUM${NC}" >> $LOG
-	echo "Voltages: $VOLTAGE - minimum: ${YELLOW}$VOLTAGE_MINIMUM${NC}" >> $LOG
-	echo "Temperatures: $TMP" >> $LOG
-	echo "######################################" >> $LOG
+	echo -e "$DT: $rig is ${GREEN}WORKING${NC}" >> $LOG
+	echo -e "Status: $error" >> $LOGbash 
+	echo -e "Hashes: $HR - minimum: ${YELLOW}$HASH_RATE_MINIMUM${NC}" >> $LOG
+	echo -e "MemStates: $MS" >> $LOG
+	echo -e "MemSpeeds: $MSPEED - minimum: ${YELLOW}$MEMORY_MHZ_MINIMUM${NC}" >> $LOG
+	echo -e "Voltages: $VOLTAGE - minimum: ${YELLOW}$VOLTAGE_MINIMUM${NC}" >> $LOG
+	echo -e "Temperatures: $TMP" >> $LOG
+	echo -e "######################################" >> $LOG
 fi
 
 # Lets not let logs get out of control and truncate them a bit.
