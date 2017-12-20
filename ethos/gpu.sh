@@ -61,6 +61,12 @@ VOLTAGE=`grep ^voltage: /var/run/ethos/stats.file | sed 's/voltage://'`
 DT=`date +"%D %T"`
 gpu="0"
 GPUCOUNT=$(cat /var/run/ethos/gpucount.file)
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+
 touch $LOG
 chown ethos.ethos $LOG
 
@@ -117,12 +123,12 @@ if [[ $(bc <<< "`awk -v s=$((gpu+1)) '{print $s}' <<< ${VOLTAGE[@]}` < $VOLTAGE_
 if [[ $DOREBOOT == "true" ]]; then
 	# Action to take if GPU crashed
 	echo "######################################" >> $LOG
-	echo "$DT: GPU$gpu CRASHED - $rig is restarting" >> $LOG
+	echo "$DT: GPU$gpu ${RED}CRASHED${NC} - $rig is restarting" >> $LOG
 	echo "Status: $error" >> $LOG
-	echo "Hashes: $HR - minimum: $HASH_RATE_MINIMUM" >> $LOG
+	echo "Hashes: $HR - minimum: ${YELLOW}$HASH_RATE_MINIMUM${NC}" >> $LOG
 	echo "MemStates: $MS" >> $LOG
-	echo "MemSpeeds: $MSPEED - minimum: $MEMORY_MHZ_MINIMUM" >> $LOG
-	echo "Voltages: $VOLTAGE - minimum: $VOLTAGE_MINIMUM" >> $LOG
+	echo "MemSpeeds: $MSPEED - minimum: ${YELLOW}$MEMORY_MHZ_MINIMUM${NC}" >> $LOG
+	echo "Voltages: $VOLTAGE - minimum: ${YELLOW}$VOLTAGE_MINIMUM${NC}" >> $LOG
 	echo "Temperatures: $TMP" >> $LOG
 	echo "######################################" >> $LOG
 if [[ $REBOOT == "true" ]]; then
@@ -135,14 +141,15 @@ fi
 done
 
 # This will give you an hourly log saying that things are working.
-if [ $LOGGING == "true" ] && [ `date +"%M"` == "00" ]; then
+if [ $LOGGING == "true" ]; then 
+#&& [ `date +"%M"` == "00" ]; then
 	echo "######################################" >> $LOG
-	echo "$DT: $rig is WORKING" >> $LOG
+	echo "$DT: $rig is ${GREEN}WORKING${NC}" >> $LOG
 	echo "Status: $error" >> $LOGbash 
-	echo "Hashes: $HR - minimum: $HASH_RATE_MINIMUM" >> $LOG
+	echo "Hashes: $HR - minimum: ${YELLOW}$HASH_RATE_MINIMUM${NC}" >> $LOG
 	echo "MemStates: $MS" >> $LOG
-	echo "MemSpeeds: $MSPEED - minimum: $MEMORY_MHZ_MINIMUM" >> $LOG
-	echo "Voltages: $VOLTAGE - minimum: $VOLTAGE_MINIMUM" >> $LOG
+	echo "MemSpeeds: $MSPEED - minimum: ${YELLOW}$MEMORY_MHZ_MINIMUM${NC}" >> $LOG
+	echo "Voltages: $VOLTAGE - minimum: ${YELLOW}$VOLTAGE_MINIMUM${NC}" >> $LOG
 	echo "Temperatures: $TMP" >> $LOG
 	echo "######################################" >> $LOG
 fi
