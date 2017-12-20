@@ -122,15 +122,16 @@ if [[ $(bc <<< "`awk -v s=$((gpu+1)) '{print $s}' <<< ${VOLTAGE[@]}` < $VOLTAGE_
 
 if [[ $DOREBOOT == "true" ]]; then
 	# Action to take if GPU crashed
-	echo "######################################" >> $LOG
-	echo "$DT: GPU$gpu ${RED}CRASHED${NC} - $rig is restarting" >> $LOG
-	echo "Status: $error" >> $LOG
-	echo "Hashes: $HR - minimum: ${YELLOW}$HASH_RATE_MINIMUM${NC}" >> $LOG
-	echo "MemStates: $MS" >> $LOG
-	echo "MemSpeeds: $MSPEED - minimum: ${YELLOW}$MEMORY_MHZ_MINIMUM${NC}" >> $LOG
-	echo "Voltages: $VOLTAGE - minimum: ${YELLOW}$VOLTAGE_MINIMUM${NC}" >> $LOG
-	echo "Temperatures: $TMP" >> $LOG
-	echo "######################################" >> $LOG
+	echo 	"######################################" | tee -a $LOG
+	echo -e "$DT: GPU$gpu ${RED}CRASHED${NC} - $rig is restarting" | tee -a $LOG
+	echo -e "Status: $error" | tee -a $LOG
+	echo -e "Hashes: $HR - minimum: ${YELLOW}$HASH_RATE_MINIMUM${NC}" | tee -a $LOG
+	echo -e "MemStates: $MS" | tee -a $LOG
+	echo -e "MemSpeeds: $MSPEED - minimum: ${YELLOW}$MEMORY_MHZ_MINIMUM${NC}" | tee -a $LOG
+	echo -e "Voltages: $VOLTAGE - minimum: ${YELLOW}$VOLTAGE_MINIMUM${NC}" | tee -a $LOG
+	echo -e "Temperatures: $TMP" | tee -a $LOG
+	echo 	"######################################" | tee -a $LOG
+	
 if [[ $REBOOT == "true" ]]; then
 	# Here is the reboot command	
 	/opt/ethos/bin/hard-reboot
@@ -141,9 +142,8 @@ fi
 done
 
 # This will give you an hourly log saying that things are working.
-if [ $LOGGING == "true" ]; then 
-#&& [ `date +"%M"` == "00" ]; then
-	echo "######################################" | tee -a $LOG
+if [ $LOGGING == "true" ] && [ `date +"%M"` == "00" ]; then
+	echo 	"######################################" | tee -a $LOG
 	echo -e "$DT: $rig is ${GREEN}WORKING${NC}" | tee -a $LOG
 	echo -e "Status: $error" | tee -a $LOG
 	echo -e "Hashes: $HR - minimum: ${YELLOW}$HASH_RATE_MINIMUM${NC}" | tee -a $LOG
@@ -151,7 +151,7 @@ if [ $LOGGING == "true" ]; then
 	echo -e "MemSpeeds: $MSPEED - minimum: ${YELLOW}$MEMORY_MHZ_MINIMUM${NC}" | tee -a $LOG
 	echo -e "Voltages: $VOLTAGE - minimum: ${YELLOW}$VOLTAGE_MINIMUM${NC}" | tee -a $LOG
 	echo -e "Temperatures: $TMP" | tee -a $LOG
-	echo "######################################" | tee -a $LOG
+	echo 	"######################################" | tee -a $LOG
 fi
 
 # Lets not let logs get out of control and truncate them a bit.
