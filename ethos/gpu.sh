@@ -137,7 +137,18 @@ if [[ $REBOOT == "true" ]]; then
 	/opt/ethos/bin/hard-reboot
 fi
 fi
-
+if [[ $DOREBOOT == "true" ]]; then
+	# Action to take if GPU crashed
+	echo 	"######################################" | tee -a $LOG
+	echo -e "$DT: GPU$gpu ${RED}CRASHED${NC} - $rig is restarting" | tee -a $LOG
+	echo -e "Status: $error" | tee -a $LOG
+	echo -e "Hashes: $HR - minimum: ${YELLOW}$HASH_RATE_MINIMUM${NC}" | tee -a $LOG
+	echo -e "MemStates: $MS" | tee -a $LOG
+	echo -e "MemSpeeds: $MSPEED - minimum: ${YELLOW}$MEMORY_MHZ_MINIMUM${NC}" | tee -a $LOG
+	echo -e "Voltages: $VOLTAGE - minimum: ${YELLOW}$VOLTAGE_MINIMUM${NC}" | tee -a $LOG
+	echo -e "Temperatures: $TMP" | tee -a $LOG
+	echo 	"######################################" | tee -a $LOG
+	fi
 (( gpu++ ))
 done
 
