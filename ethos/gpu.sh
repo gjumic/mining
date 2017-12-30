@@ -19,7 +19,7 @@
 # 6. Inside editor add "*/5 * * * * /home/ethos/gpu.sh" line
 # You can change */5 to another number (default is ever 5th min and i dont recommend less then this)
 #
-# Props to Cynix from thecynix.com for givig me ideas for code with his monitor http://thecynix.com/gpu.txt
+# Props to Cynix from thecynix.com for giving me ideas for code with his monitor http://thecynix.com/gpu.txt
 # For all feedback contact me on jumic.goran[AT]gmail.com
 ######################################################
 # If you have found this script useful please donate BTC or ETH to following adresses.
