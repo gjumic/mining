@@ -54,5 +54,5 @@ for dir in $dirs; do
                 pwr=`cat /sys/kernel/debug/dri/$cardno/amdgpu_pm_info | grep -m1 '(average GPU)' | awk '{print $1}'`
 
 
-        echo -e "$plevelStr \t${PURPLE}DPM${NOCOLOR} $core_dpm ${PURPLE}CORE${NOCOLOR} $core_mhz ${PURPLE}V${NOCOLOR} $mem_dpm ${PURPLE}MEM${NOCOLOR} $mem_mhz \t\t${PURPLE}PWR${NOCOLOR} $pwr W"
+        echo -e "$plevelStr \t${PURPLE}DPM${NOCOLOR} $core_dpm ${PURPLE}CORE${NOCOLOR} $core_mhz ${PURPLE}MEM${NOCOLOR} $mem_mhz \t\t${PURPLE}PWR${NOCOLOR} $pwr W"
 done
