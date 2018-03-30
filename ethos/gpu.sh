@@ -1,6 +1,6 @@
 #!/bin/bash
 ######################################################
-# README - ETHOS GPU WATCHDOG v1.2 by Stormer
+# README - ETHOS GPU WATCHDOG by Stormer
 ######################################################
 # Main function of this script is to monitor gpu.
 # If your gpu crashes it will log it and reboot your mining rig.
@@ -16,10 +16,9 @@
 # 3. Obtain root with "sudo su"
 # 4. Open crontab editor with "crontab -e"
 # 5. Inside editor add "SHELL=/bin/bash" line
-# 6. Inside editor add "*/5 * * * * /home/ethos/gpu.sh" line
-# You can change */5 to another number (default is ever 5th min and i dont recommend less then this)
+# 6. Inside editor add "*/5 * * * * /home/ethos/gpu.sh" line 
+# You can change */5 to another number (default is ever 5th min and i dont recommend less then this) and change location to fit your needs
 #
-# Props to Cynix from thecynix.com for giving me ideas for code with his monitor http://thecynix.com/gpu.txt
 # For all feedback contact me on jumic.goran[AT]gmail.com
 ######################################################
 # If you have found this script useful please donate BTC or ETH to following adresses.
@@ -33,7 +32,7 @@
 LOGSIZE="1000" # only have last x lines in log
 REBOOT="true" # if this false it will not reboot just log
 LOGGING="true" # if this true it will log hourly report to crash.log
-HASH_RATE_MINIMUM="350" # if hashing < x log and reboot
+HASH_RATE_MINIMUM="350" # if hashing < x per GPU log and reboot
 MEMORY_MHZ_MINIMUM="1000" # if memory clock of any card is less than this it will log and reboot
 VOLTAGE_MINIMUM="0.6" # if gpu voltage drops below this it will log and reboot
 LOG="/home/ethos/crash.log" # Location where to write log file, folder must exist
