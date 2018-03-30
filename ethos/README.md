@@ -18,6 +18,7 @@ There is no need for additional packages or programs installation.
 Use source code of any script you need, inside there is commented quick install guide.
 
 ### Donations
+
 If you have found this scripts useful please donate BTC or ETH to following adresses.
 This will give me more motivation to work on this and many more scripts:
 BTC = 1Dqa4Exdc2cfeMuhZ7Pnf9ri253UtbhsxY
