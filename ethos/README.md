@@ -31,3 +31,5 @@ ETH = 0xe42fb03f179Fe4e11480D623e5C40eA070a6222F
 
 * Props to Cynix from thecynix.com for giving me ideas for code with his monitor http://thecynix.com/gpu.txt
 
+
+For all feedback contact me on jumic.goran[AT]gmail.com
