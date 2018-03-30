@@ -68,40 +68,8 @@ NC='\033[0m'
 
 
 touch $LOG
-chown ethos.ethos $LOG
+chown ethos:ethos $LOG
 
-
-if [[ $AUTOFAN == "true" ]]; then
-		for ((I=0;I<GPUCOUNT;I++)); do
-			GPUS[$I]=$I
-	done
-	
-	tot=0
-	for i in ${TMP[@]}; do
-	let tot+=$i
-	done
-	
-	AVTEMP=$(( $tot / $GPUCOUNT ))
-	
-	# Here you can edit ranges of temps and according fan speed for it
-	if [ "$AVTEMP" -ge 20 -a "$AVTEMP" -le 40 ]; then SETFAN=50;
-	elif [ "$AVTEMP" -ge 41 -a "$AVTEMP" -le 50 ]; then SETFAN=60;
-	elif [ "$AVTEMP" -ge 51 -a "$AVTEMP" -le 60 ]; then SETFAN=70;
-	elif [ "$AVTEMP" -ge 61 -a "$AVTEMP" -le 70 ]; then SETFAN=80;
-	elif [ "$AVTEMP" -ge 71 -a "$AVTEMP" -le 100 ]; then SETFAN=90; fi
-
-	echo "######################################" >> $LOG	
-	echo "Average GPUs temperature: $AVTEMP" >> $LOG
-	echo "Setting $SETFAN% fan speed for GPUs" >> $LOG
-	echo "######################################" >> $LOG
-	
-	for I in "${!GPUS[@]}"; do
-		HWMONDIR=$(echo /sys/class/drm/card$I/device/hwmon/* | grep -Poi "(?<=hwmon)(\d+)") 
-		echo 1 > /sys/class/drm/card$I/device/hwmon/hwmon"$HWMONDIR"/pwm1_enable
-		FAN=$(/bin/echo "$SETFAN * 2.55" | bc -l | awk '{printf "%.0f", $1}')
-		echo "$FAN" > /sys/class/drm/card$I/device/hwmon/hwmon"$HWMONDIR"/pwm1
-	done
-fi
 
 # Separate each hash into its own loop.
 for i in ${HR[@]}; do 
