@@ -1,6 +1,6 @@
 #!/bin/bash
 ######################################################
-# README - ETHOS GPU WATCHDOG by Stormer
+# ETHOS GPU WATCHDOG by Stormer
 ######################################################
 # Main function of this script is to monitor gpu.
 # If your gpu crashes it will log it and reboot your mining rig.
@@ -13,11 +13,10 @@
 # Install guide:
 # 1. Save file to desired location
 # 2. Give execute premission to file with "chmod +x gpu.sh"
-# 3. Obtain root with "sudo su"
-# 4. Open crontab editor with "crontab -e"
-# 5. Inside editor add "SHELL=/bin/bash" line
-# 6. Inside editor add "*/5 * * * * /home/ethos/gpu.sh" line 
-# You can change */5 to another number (default is ever 5th min and i dont recommend less then this) and change location to fit your needs
+# 3. Modify script configuration via variables to suit your needs then save and exit.
+# 4. Execute once with sudo so script adds itself to cronjob list. 
+# Example "sudo /home/ethos/gpu.sh"
+# Thats it, your script will add itself and run every x minutes depending on configuration.
 #
 # For all feedback contact me on jumic.goran[AT]gmail.com
 ######################################################
@@ -29,13 +28,14 @@
 # VARIABLES (Configuration)
 ######################################################
 
-LOGSIZE="1000" # only have last x lines in log
-REBOOT="true" # if this false it will not reboot just log
+REBOOT="true" # If this true it will log and reboot on gpu fail, else will just log
 LOGGING="true" # if this true it will log hourly report to crash.log
-HASH_RATE_MINIMUM="350" # if hashing < x per GPU log and reboot
-MEMORY_MHZ_MINIMUM="1000" # if memory clock of any card is less than this it will log and reboot
-VOLTAGE_MINIMUM="0.6" # if gpu voltage drops below this it will log and reboot
+HASH_RATE_MINIMUM="15" # Minimum hashrate per GPU, if drops below will trigger script. If your GPU hashes for example 30MH/s, you can put 20 here.
+MEMORY_MHZ_MINIMUM="1000" # Minimum per GPU memory speed, if drops below will trigger script.
+VOLTAGE_MINIMUM="0.6" # Minimum per GPU core voltage, if drops below will trigger script.
 LOG="/home/ethos/crash.log" # Location where to write log file, folder must exist
+LOGSIZE="1000" # You can change this number to make log file shorter or longer (how many lines)
+CRONMINUTES="5" # How many minutes between each check (execution of this script)
 
 ######################################################
 # M A I N
@@ -47,6 +47,7 @@ if [[ `sed 's/\..*//' /proc/uptime` -lt "600" ]]; then
 fi
 
 # Lets get some information to work with.
+
 HR=`tail -1 /var/run/ethos/miner_hashes.file`
 allow=`cat /opt/ethos/etc/allow.file`
 error=`cat /var/run/ethos/status.file`
@@ -66,6 +67,13 @@ NC='\033[0m'
 
 touch $LOG
 chown ethos:ethos $LOG
+
+# This will add this script to crontab
+ME=$(readlink -f "$0")
+croninit="SHELL=/bin/bash"
+( crontab -l | grep -v -F "$croninit" ; echo "$croninit" ) | crontab -
+cronjob="*/$CRONMINUTES * * * * $ME"
+( crontab -l | grep -v -F "$ME" ; echo "$cronjob" ) | crontab -
 
 
 # Separate each hash into its own loop.
