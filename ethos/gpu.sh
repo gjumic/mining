@@ -75,6 +75,23 @@ croninit="SHELL=/bin/bash"
 cronjob="*/$CRONMINUTES * * * * $ME"
 ( crontab -l | grep -v -F "$ME" ; echo "$cronjob" ) | crontab -
 
+# This will check if sgminer is working and use its log
+
+if  [ -f /tmp/sgminer.log ] && [ grep -q "DEAD"  /tmp/sgminer.log ] 
+then 
+	# Action to take if GPU crashed
+	echo 	"######################################" | tee -a $LOG
+	echo 	"Detected DEAD GPU or GPUS from sgminer log" | tee -a $LOG
+	echo -e "$DT: RIG ${RED}CRASHED${NC} - $rig is restarting" | tee -a $LOG
+	echo 	"######################################" | tee -a $LOG
+	
+	if [[ $REBOOT == "true" ]]; then
+		# Here is the reboot command	
+		/opt/ethos/bin/hard-reboot
+		exit 1
+	fi
+fi
+
 
 # Separate each hash into its own loop.
 for i in ${HR[@]}; do 
@@ -105,10 +122,11 @@ if [[ $DOREBOOT == "true" ]]; then
 	echo -e "Temperatures: $TMP" | tee -a $LOG
 	echo 	"######################################" | tee -a $LOG
 	
-if [[ $REBOOT == "true" ]]; then
-	# Here is the reboot command	
-	/opt/ethos/bin/hard-reboot
-fi
+	if [[ $REBOOT == "true" ]]; then
+		# Here is the reboot command	
+		/opt/ethos/bin/hard-reboot
+		exit 1
+	fi
 fi
 
 (( gpu++ ))
