@@ -25,7 +25,7 @@ This are some tools i quickly developed for ethOS operating system
 If you did step above you will need to reboot your mining rig after you complete last step.
 5. Execute once with sudo, so script adds itself to cronjob list. 
 ```
-# sudo /home/ethos/gpu.sh
+# sudo /home/ethos/gpu-monitor/gpu.sh
 ```
 Thats it, your script will add itself and run every x minutes depending on configuration.
 
