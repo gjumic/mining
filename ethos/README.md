@@ -15,12 +15,18 @@ This are some tools i quickly developed for ethOS operating system
 ### Installing
 
 1. Save file to desired location
-2. Give execute premission to file with "chmod +x gpu.sh"
+2. Give execute premission to file with
+```
+# chmod +x gpu.sh
+```
+
 3. Modify script configuration via variables to suit your needs then save and exit.
-4. sgminer-x16r ONLY: if you are using sgminer-x16r for mining use, edit /home/ethos/sgminer.stub.conf and add "log-file":"/tmp/sgminer.log" to config.
+4. sgminer-x16r ONLY: if you are using sgminer-x16r for mining use, edit */home/ethos/sgminer.stub.conf* and add *"log-file":"/tmp/sgminer.log"* to config.
 If you did step above you will need to reboot your mining rig after you complete last step.
 5. Execute once with sudo, so script adds itself to cronjob list. 
-Example "sudo /home/ethos/gpu.sh"
+```
+# sudo /home/ethos/gpu.sh
+```
 Thats it, your script will add itself and run every x minutes depending on configuration.
 
 ### Donations
