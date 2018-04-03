@@ -43,6 +43,14 @@ CRONMINUTES="5" # How many minutes between each check (execution of this script)
 # M A I N
 ######################################################
 
+
+# This will add this script to crontab
+ME=$(readlink -f "$0")
+croninit="SHELL=/bin/bash"
+( crontab -l | grep -v -F "$croninit" ; echo "$croninit" ) | crontab -
+cronjob="*/$CRONMINUTES * * * * $ME"
+( crontab -l | grep -v -F "$ME" ; echo "$cronjob" ) | crontab -
+
 # First check if the miner has had 10 minutes to start mining close the script if not.
 if [[ `sed 's/\..*//' /proc/uptime` -lt "600" ]]; then
 	exit 1
@@ -70,12 +78,6 @@ NC='\033[0m'
 touch $LOG
 chown ethos:ethos $LOG
 
-# This will add this script to crontab
-ME=$(readlink -f "$0")
-croninit="SHELL=/bin/bash"
-( crontab -l | grep -v -F "$croninit" ; echo "$croninit" ) | crontab -
-cronjob="*/$CRONMINUTES * * * * $ME"
-( crontab -l | grep -v -F "$ME" ; echo "$cronjob" ) | crontab -
 
 # This will check if sgminer is working and use its log
 if  [ -f /tmp/sgminer.log ] && [ grep -q "DEAD"  /tmp/sgminer.log ]  && [[ $allow == "1" ]] 
