@@ -14,7 +14,9 @@
 # 1. Save file to desired location
 # 2. Give execute premission to file with "chmod +x gpu.sh"
 # 3. Modify script configuration via variables to suit your needs then save and exit.
-# 4. Execute once with sudo so script adds itself to cronjob list. 
+# 4. sgminer-x16r ONLY: if you are using sgminer-x16r for mining use, edit /home/ethos/sgminer.stub.conf and add "log-file":"/tmp/sgminer.log" to config.
+# If you did step above you will need to reboot your mining rig after you complete last step.
+# 5. Execute once with sudo so script adds itself to cronjob list. 
 # Example "sudo /home/ethos/gpu.sh"
 # Thats it, your script will add itself and run every x minutes depending on configuration.
 #
@@ -33,7 +35,7 @@ LOGGING="true" # if this true it will log hourly report to crash.log
 HASH_RATE_MINIMUM="15" # Minimum hashrate per GPU, if drops below will trigger script. If your GPU hashes for example 30MH/s, you can put 20 here.
 MEMORY_MHZ_MINIMUM="1000" # Minimum per GPU memory speed, if drops below will trigger script.
 VOLTAGE_MINIMUM="0.6" # Minimum per GPU core voltage, if drops below will trigger script.
-LOG="/home/ethos/crash.log" # Location where to write log file, folder must exist
+LOG="/home/ethos/gpu-monitor/crash.log" # Location where to write log file, folder must exist
 LOGSIZE="1000" # You can change this number to make log file shorter or longer (how many lines)
 CRONMINUTES="5" # How many minutes between each check (execution of this script)
 
@@ -76,8 +78,7 @@ cronjob="*/$CRONMINUTES * * * * $ME"
 ( crontab -l | grep -v -F "$ME" ; echo "$cronjob" ) | crontab -
 
 # This will check if sgminer is working and use its log
-
-if  [ -f /tmp/sgminer.log ] && [ grep -q "DEAD"  /tmp/sgminer.log ] 
+if  [ -f /tmp/sgminer.log ] && [ grep -q "DEAD"  /tmp/sgminer.log ]  && [[ $allow == "1" ]] 
 then 
 	# Action to take if GPU crashed
 	echo 	"######################################" | tee -a $LOG
@@ -86,7 +87,8 @@ then
 	echo 	"######################################" | tee -a $LOG
 	
 	if [[ $REBOOT == "true" ]]; then
-		# Here is the reboot command	
+		# Here is the reboot command
+		rm -f /tmp/sgminer.log
 		/opt/ethos/bin/hard-reboot
 		exit 1
 	fi
