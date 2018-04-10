@@ -45,6 +45,7 @@ CRONMINUTES="5" # How many minutes between each check (execution of this script)
 
 
 # This will add this script to crontab
+sleep 75 # Added 1:15 sleep before script actualy continues. Noticed double execution of script from time to time. I belive it is because of the cron
 ME=$(readlink -f "$0")
 croninit="SHELL=/bin/bash"
 ( crontab -l | grep -v -F "$croninit" ; echo "$croninit" ) | crontab -
@@ -110,7 +111,7 @@ fi
 # Feel free to change $crash above to fit your needs.
 if [[ $(bc <<< "$i < $HASH_RATE_MINIMUM") -eq 1 ]] && [[ $allow == "1" ]]; then DOREBOOT="true"; fi
 if [[ $error == "gpu crashed: reboot required" ]] && [[ $allow == "1" ]]; then DOREBOOT="true"; fi
-if [[ `awk -v s=$((gpu+1)) '{print $s}' <<< ${MS[@]}` == 0 ]] && [[ $allow == "1" ]]; then DOREBOOT="true"; fi
+#if [[ `awk -v s=$((gpu+1)) '{print $s}' <<< ${MS[@]}` == 0 ]] && [[ $allow == "1" ]]; then DOREBOOT="true"; fi
 if [[ `awk -v s=$((gpu+1)) '{print $s}' <<< ${MSPEED[@]}` -lt $MEMORY_MHZ_MINIMUM ]] && [[ $allow == "1" ]]; then DOREBOOT="true"; fi
 if [[ $(bc <<< "`awk -v s=$((gpu+1)) '{print $s}' <<< ${VOLTAGE[@]}` < $VOLTAGE_MINIMUM") -eq 1 ]] && [[ $allow == "1" ]]; then DOREBOOT="true"; fi
 
