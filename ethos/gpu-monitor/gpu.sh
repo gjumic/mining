@@ -45,7 +45,6 @@ CRONMINUTES="5" # How many minutes between each check (execution of this script)
 
 
 # This will add this script to crontab
-sleep 75 # Added 1:15 sleep before script actualy continues. Noticed double execution of script from time to time. I belive it is because of the cron
 ME=$(readlink -f "$0")
 croninit="SHELL=/bin/bash"
 ( crontab -l | grep -v -F "$croninit" ; echo "$croninit" ) | crontab -
