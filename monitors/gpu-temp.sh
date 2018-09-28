@@ -1,7 +1,8 @@
 #!/bin/bash
 ######################################################
-# README - MINING RIG GPU TEMPERATURE WATCHDOG v2.0 by Stormer
+# README - 
 ######################################################
+#
 # For all feedback contact me on jumic.goran[AT]gmail.com
 ######################################################
 # If you have found this script useful please donate BTC or ETH to following adresses.
@@ -15,9 +16,10 @@
 
 RIGLIST=( 10.114.3.100 10.114.3.101 10.114.3.102 )
 LOGSIZE=1000 #How mouch lines should log file contain (script leaves last x lines so log does not get too big)
-NOWT=$(date '+%d/%m/%Y %H:%M:%S') # Date and time format
 LOG="/home/pi/rig-monitor/temp-log.txt" # Name and path to your log file, folder must exist
 MPOWER_IP="10.114.3.103"
+MPOWER_USER="ubnt"
+MPOWER_PASS="ubnt"
 MAX_TEMP=72 # IF TEMPERATURE GREATER THAN THIS VENTILATION WILL TURN ON
 CHECK_EVERY=120 # HOW MANY SECONDS BETWEEN EACH CHECK
 TURN_OFF_TIMEOUT=1200 # HOW MANY SECONDS WILL VENTILATION STILL CONTINUE TO WORK AFTER TEMPERATURES ARE BACK BELOW MAX_TEMP
@@ -42,9 +44,11 @@ if [ -z $RIGLIST  ]; then echo "No provided IP"; exit 1; fi
 
 while true; do
 	sleep $CHECK_EVERY
+	NOWT=$(date '+%d/%m/%Y %H:%M:%S') # Date and time format
 	echo '###############################################' >> $LOG
 	echo "STARTING TEMPERATURE CHECK - $NOWT" >> $LOG
 	echo '###############################################' >> $LOG
+	TURNON="false"
 	for i in "${RIGLIST[@]}"
         do
         :
@@ -57,7 +61,7 @@ while true; do
 					TURNON="true"
 				else
 					echo -e "GPU Temp: ${GREEN}$t${NC}" >> $LOG
-					TURNON="false"
+					
 				fi 		
 			done
 	done
@@ -66,28 +70,34 @@ while true; do
 	
 	if [[ $TURNON == "true" ]]; then
 		echo -e "${RED}High Temperature Detected${NC} on GPU -> Turning ON Ventilation" >> $LOG
-		sshpass -p ubnt ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 ubnt@$MPOWER_IP "echo '1' > /proc/power/relay3"
+		sshpass -p $MPOWER_PASS ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 $MPOWER_USER@$MPOWER_IP "echo '1' > /proc/power/relay3"
 		echo -e "Temperature Re-check in ${CHECK_EVERY} seconds" >> $LOG
 		echo -e "======================" >> $LOG
 		OFF_TIMER="true"
+		NOWT=$(date '+%d/%m/%Y %H:%M:%S') # Date and time format
+		echo '###############################################' >> $LOG
+		echo "FINISHED TEMPERATURE CHECK - $NOWT" >> $LOG
+		echo '###############################################' >> $LOG
+		echo "$(tail -n $LOGSIZE ${LOG})" > $LOG # Log cleaner
 		continue
 	else	
 		if [[ $OFF_TIMER == "true" ]]; then 
 			echo -e "${GREEN}All Temperatures are normal on GPUs -> Turning OFF Ventilation in ${TURN_OFF_TIMEOUT} seconds ${NC}" >> $LOG
 			sleep $TURN_OFF_TIMEOUT
-			sshpass -p ubnt ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 ubnt@$MPOWER_IP "echo '0' > /proc/power/relay3"
+			sshpass -p $MPOWER_PASS ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 $MPOWER_USER@$MPOWER_IP "echo '0' > /proc/power/relay3"
 		else
 			echo -e "${GREEN}All Temperatures are normal on GPUs -> Ventilation already OFF, continue...${NC}" >> $LOG
 		fi		
 		echo -e "Temperature Re-check in ${CHECK_EVERY} seconds" >> $LOG
 		echo -e "======================" >> $LOG
 		OFF_TIMER="false"
+		NOWT=$(date '+%d/%m/%Y %H:%M:%S') # Date and time format
+		echo '###############################################' >> $LOG
+		echo "FINISHED TEMPERATURE CHECK - $NOWT" >> $LOG
+		echo '###############################################' >> $LOG
+		echo "$(tail -n $LOGSIZE ${LOG})" > $LOG # Log cleaner
 		continue
 	fi	
 	
-echo '###############################################' >> $LOG
-echo "FINISHED TEMPERATURE CHECK - $NOWT" >> $LOG
-echo '###############################################' >> $LOG
 
-echo "$(tail -n $LOGSIZE ${LOG})" > $LOG # Log cleaner
 done
