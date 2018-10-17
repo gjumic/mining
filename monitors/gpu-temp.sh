@@ -16,7 +16,7 @@
 
 RIGLIST=( 10.114.3.100 10.114.3.101 10.114.3.102 )
 LOGSIZE=1000 #How mouch lines should log file contain (script leaves last x lines so log does not get too big)
-LOG="/home/pi/rig-monitor/temp-log.txt" # Name and path to your log file, folder must exist
+LOG="/opt/github/mining/monitors/temp-log.txt" # Name and path to your log file, folder must exist
 MPOWER_IP="10.114.3.103"
 MPOWER_USER="ubnt"
 MPOWER_PASS="ubnt"
