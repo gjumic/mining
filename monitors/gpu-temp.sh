@@ -18,6 +18,8 @@ RIGLIST=( 10.114.3.100 10.114.3.101 10.114.3.102 )
 LOGSIZE=1000 #How mouch lines should log file contain (script leaves last x lines so log does not get too big)
 LOG="/opt/github/mining/monitors/temp-log.txt" # Name and path to your log file, folder must exist
 MPOWER_IP="10.114.3.103"
+RIGUSER=$1
+RIGPASS=$2
 MPOWER_USER="ubnt"
 MPOWER_PASS="ubnt"
 MAX_TEMP=72 # IF TEMPERATURE GREATER THAN THIS VENTILATION WILL TURN ON
@@ -52,7 +54,7 @@ while true; do
 	for i in "${RIGLIST[@]}"
         do
         :
-			TEMPS=($(sshpass -p 1 ssh user@$i "amd-info | grep Temp: | awk '{print \$12}'"))
+			TEMPS=($(sshpass -p $RIGPASS ssh $RIGUSER@$i "amd-info | grep Temp: | awk '{print \$12}'"))
 			echo -e "-------------" >> $LOG 	
 			echo -e "Checking Rig: ${YELLOW}$i${NC}" >> $LOG 	
 			for t in ${TEMPS[@]}; do
