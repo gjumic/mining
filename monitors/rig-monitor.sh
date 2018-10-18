@@ -1,20 +1,7 @@
 #!/bin/bash
 ######################################################
-# README - ETHOS MINER RIG WATCHDOG v1.0 by Stormer
+# README - 
 ######################################################
-# Main function of this script is to monitor if rigs are alive, if not it will send sms with warring which rig is offline.
-# For now it just checks ping but soon more checks will come like ssh connection, rig status, temps, etc..
-# This script should be run from some linux system (Raspberry Pi for me) in same network/subnet
-#
-# Install guide:
-# 1. Save file to desired location
-# 2. Give execute premission to file with "chmod +x rig-monitor.sh"
-# 3. Open crontab editor with "crontab -e"
-# 4. Inside editor add "SHELL=/bin/bash" line
-# 5. Inside editor add "*/5 * * * * /opt/rig-monitor/rig-monitor.sh" line (file location is example)
-# You can change */5 to another number (default is ever 5th min and i dont recommend less then this)
-#
-# YOU NEED SOME API FOR SENDING SMS, IM USING ANDOROID CELLPHONE IN MY NETWORK WITH REST SMS GATEWAY APP (sim card in cellphone)
 #
 # For all feedback contact me on jumic.goran[AT]gmail.com
 ######################################################
