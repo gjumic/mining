@@ -1,5 +1,7 @@
 # Personal AMD overclocking profiles for mining
 
+## Cryptonight Algo
+
 ### Gigabyte Gaming RX580 4GB
 
 

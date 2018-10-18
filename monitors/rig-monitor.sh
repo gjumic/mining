@@ -30,7 +30,7 @@
 RIGLIST=( 10.114.3.100 10.114.3.101 10.114.3.102 ) # List of IPv4s of your EthOS rigs
 LOGSIZE=1000 #How mouch lines should log file contain (script leaves last x lines so log does not get too big)
 NOWT=$(date '+%d/%m/%Y %H:%M:%S') # Date and time format
-LOG="/home/pi/rig-monitor/log.txt" # Name and path to your log file, folder must exist
+LOG="/opt/github/mining/monitors/log.txt" # Name and path to your log file, folder must exist
 
 ######################################################
 # FUNCTIONS
